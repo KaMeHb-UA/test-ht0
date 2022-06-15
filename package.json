@@ -2,5 +2,6 @@
     "name": "test-ht0",
     "private": true,
     "dependencies": {
+        "@grpc/grpc-js": "^1.6.7"
     }
 }
