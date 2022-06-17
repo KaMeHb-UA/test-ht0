@@ -5,7 +5,7 @@ export function registerComponent({ name, default: loader }, options){
     let start;
     loadedComponents[name] = new Promise(r => setTimeout(r))
         .then(() => (start = Date.now(), loader(options)))
-        .then(component => (console.log(`Component ${name} loaded in ${Date.now() - start} ms`), loadedComponents[name] = component));
+        .then(component => (console.log(`${name} loaded in ${Date.now() - start} ms`), loadedComponents[name] = component));
 }
 
 export async function loadComponent(name){
