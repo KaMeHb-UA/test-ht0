@@ -10,7 +10,7 @@
     "@grpc/proto-loader" "^0.6.4"
     "@types/node" ">=12.12.47"
 
-"@grpc/proto-loader@^0.6.4":
+"@grpc/proto-loader@^0.6.13", "@grpc/proto-loader@^0.6.4":
   version "0.6.13"
   resolved "https://registry.yarnpkg.com/@grpc/proto-loader/-/proto-loader-0.6.13.tgz#008f989b72a40c60c96cd4088522f09b05ac66bc"
   integrity sha512-FjxPYDRTn6Ec3V0arm1FtSpmP6V50wuph2yILpyvTKzjc76oDdoihXqM1DzOW5ubvCC8GivfCnNtfaRE8myJ7g==
