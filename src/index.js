@@ -6,4 +6,5 @@ void async function(){
     const stopServer = await startServer();
     process.on('SIGINT', stopServer);
     process.on('SIGHUP', stopServer);
+    console.log('Server started');
 }();
