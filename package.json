@@ -1,8 +1,16 @@
 {
     "name": "test-ht0",
     "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "node build --dist",
+        "start": "node build && cd dist && node --enable-source-maps index"
+    },
     "dependencies": {
         "@grpc/grpc-js": "^1.6.7",
         "@grpc/proto-loader": "^0.6.13"
+    },
+    "devDependencies": {
+        "esbuild": "^0.14.44"
     }
 }
