@@ -10,6 +10,8 @@ const dirname = resolve(fileURLToPath(import.meta.url), '..'),
   distDir = resolve(dirname, 'dist'),
   release = argv.includes('--dist');
 
+const dotenvImport = release ? '' : '\nrequire("dotenv").config({path:"../.env"});';
+
 /** @type {import('esbuild').BuildOptions} */
 const buildConfig = {
   entryPoints: [resolve(srcDir, 'index.js')],
@@ -27,7 +29,7 @@ const buildConfig = {
   legalComments: 'none',
   sourcemap: release ? false : 'inline',
   banner: {
-    js: 'import{createRequire}from "module";const require=createRequire(import.meta.url);',
+    js: 'import{createRequire}from"module";const require=createRequire(import.meta.url);' + dotenvImport,
   },
 };
 
