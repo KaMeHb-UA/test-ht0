@@ -13,7 +13,11 @@ export default async ({ loadComponent, restBinding }) => {
             if(!(method in proto) || !(method in methods)) return res.writeHead(404).end();
             const [ httpMethod, readRequest, writeResponce ] = proto[method];
             if(httpMethod !== req.method) return res.writeHead(405).end();
-            await writeResponce(res, methods[method](await readRequest(req)));
+            try{
+                await writeResponce(res, await methods[method](await readRequest(req)));
+            } catch(e){
+                res.writeHead(e.code || 500).end(e.message);
+            }
         });
         const [ host, port ] = restBinding.split(':');
         await promisify(server.listen).call(server, +port, host);
