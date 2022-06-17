@@ -1,3 +1,5 @@
+import HTTPError from '@/helpers/http-error';
+
 export const name = 'Methods';
 
 export default async ({ loadComponent }) => {
@@ -5,6 +7,7 @@ export default async ({ loadComponent }) => {
     return {
         methods: {
             async log(data){
+                if(Number.isNaN(+new Date(data.Timestamp))) throw new HTTPError('Invalid datetime string supplied in Timestamp field', 400);
                 await add(data);
             },
         },
