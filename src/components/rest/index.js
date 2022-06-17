@@ -5,7 +5,7 @@ import proto from './proto';
 export const name = 'REST Handler';
 
 export default async ({ loadComponent, restBinding }) => {
-    const methods = await loadComponent('Methods');
+    const { methods } = await loadComponent('Methods');
     return async () => {
         const server = createServer(async (req, res) => {
             const { pathname } = new URL(req.url, 'http://localhost');
@@ -17,6 +17,11 @@ export default async ({ loadComponent, restBinding }) => {
         });
         const [ host, port ] = restBinding.split(':');
         await promisify(server.listen).call(server, +port, host);
-        return promisify(server.close).bind(server);
+        const close = promisify(server.close).bind(server);
+        return async () => {
+            const start = Date.now();
+            await close();
+            console.log(`${name} closed in ${Date.now() - start} ms`);
+        };
     };
 };

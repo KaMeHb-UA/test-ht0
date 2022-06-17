@@ -5,12 +5,12 @@ import { loadPackageDefinition, Server, ServerCredentials } from '@grpc/grpc-js'
 
 export const name = 'gRPC Handler';
 
-function wrapMethods(obj){
+function wrapMethods({ methods }){
     const res = {};
-    for(const name in obj){
+    for(const name in methods){
         res[name] = async ({ request }, callback) => {
             try{
-                callback(null, await obj[name](request));
+                callback(null, await methods[name](request));
             } catch(e){
                 callback(e);
             }
@@ -30,6 +30,11 @@ export default async ({ appRoot, loadComponent, grpcBinding }) => {
         server.addService(proto.LogService.service, methods);
         await promisify(server.bindAsync).call(server, grpcBinding, ServerCredentials.createInsecure());
         server.start();
-        return promisify(server.tryShutdown).bind(server);
+        const close = promisify(server.tryShutdown).bind(server);
+        return async () => {
+            const start = Date.now();
+            await close();
+            console.log(`${name} closed in ${Date.now() - start} ms`);
+        };
     };
 };
