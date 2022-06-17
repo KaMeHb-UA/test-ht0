@@ -8,7 +8,8 @@
     },
     "dependencies": {
         "@grpc/grpc-js": "^1.6.7",
-        "@grpc/proto-loader": "^0.6.13"
+        "@grpc/proto-loader": "^0.6.13",
+        "mongodb": "^4.7.0"
     },
     "devDependencies": {
         "esbuild": "^0.14.44"
