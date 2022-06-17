@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+message Empty {
+}
+
+message LogData {
+  string Timestamp = 1;
+  string Category = 2;
+  string Origin = 3;
+  string Message = 4;
+}
+
+service LogService {
+  rpc log (LogData) returns (Empty);
+}
