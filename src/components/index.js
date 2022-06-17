@@ -4,12 +4,18 @@ import * as server from '@/components/server';
 import * as methods from '@/components/methods';
 import { loadComponent, registerComponent } from '@/services/component-registration';
 import appRoot from '@/helpers/app-root';
+import { env } from 'node:process';
+
+const {
+    GRPC_BINDING,
+    REST_BINDING,
+} = env;
 
 const loadOptions = {
     appRoot,
     loadComponent,
-    grpcBinding: '0.0.0.0:3001',
-    restBinding: '0.0.0.0:3002',
+    grpcBinding: GRPC_BINDING,
+    restBinding: REST_BINDING,
 };
 
 await Promise.all([
