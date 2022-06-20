@@ -3,6 +3,7 @@ import { registerComponent, unregisterComponent, loadComponent } from '@/service
 import stubUnits from './stub-units';
 import units from './units';
 import getPorts from './get-ports';
+import { env } from 'node:process';
 
 // unit tests
 import grpcUnitTest from '../grpc.unit.test';
@@ -11,10 +12,12 @@ import serverUnitTest from '../server.unit.test';
 import methodsUnitTest from '../methods.unit.test';
 
 const [ grpcBinding, restBinding ] = (await getPorts(2)).map(port => `127.0.0.1:${port}`);
+const { MONGO_CONNECTION_URL } = env;
 
 const basicOptions = {
     grpcBinding,
     restBinding,
+    mongoBinding: MONGO_CONNECTION_URL,
     appRoot,
     loadComponent,
 };
