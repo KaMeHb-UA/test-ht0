@@ -4,9 +4,9 @@ const logs = [];
 
 export default {
     'Methods': async () => ({
-        methods: {
-            log: withArgsCheck('log', async () => {}),
-        },
+        methods: withArgsCheck({
+            async log(){},
+        }),
         destroy(){},
     }),
     'gRPC Handler': async ({ loadComponent }) => {

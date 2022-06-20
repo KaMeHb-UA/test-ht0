@@ -21,9 +21,14 @@ export function checkArgs(name, args){
     }
 }
 
-export function withArgsCheck(name, method){
-    return async args => {
-        checkArgs(name, args);
-        return method(args);
-    };
+export function withArgsCheck(methodMap){
+    const res = {};
+    for(const name in methodMap){
+        const method = methodMap[name];
+        res[name] = async args => {
+            checkArgs(name, args);
+            return method(args);
+        };
+    }
+    return res;
 }

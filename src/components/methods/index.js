@@ -5,9 +5,11 @@ export const name = 'Methods';
 export default async ({ loadComponent }) => {
     const { add, disconnect } = await loadComponent('MongoDB Cluster');
     return {
-        methods: {
-            log: withArgsCheck('log', async data => { await add(data) }),
-        },
+        methods: withArgsCheck({
+            async log(data){
+                await add(data)
+            },
+        }),
         async destroy(){
             const start = Date.now();
             await disconnect();
