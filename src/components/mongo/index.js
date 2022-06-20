@@ -14,6 +14,9 @@ export default async ({ mongoBinding }) => {
         async list(filter, options){
             return collection.find(filter, options).toArray();
         },
+        async rm(filter, options){
+            await collection.deleteMany(filter, options);
+        },
         async disconnect(){
             const start = Date.now();
             await client.close();
