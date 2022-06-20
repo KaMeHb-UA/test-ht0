@@ -17,6 +17,22 @@ const basicOptions = {
     loadComponent,
 };
 
+// fill shared tests state as a component
+void function(){
+    let grpcResolver, restResolver;
+    const grpcStop = new Promise(r => grpcResolver = r);
+    const restStop = new Promise(r => restResolver = r);
+    registerComponent({
+        name: 'tests state',
+        default: () => ({
+            grpcResolver,
+            grpcStop,
+            restResolver,
+            restStop,
+        }),
+    }, basicOptions);
+}();
+
 const unitTests = {
     'gRPC Handler': grpcUnitTest,
     'REST Handler': restUnitTest,

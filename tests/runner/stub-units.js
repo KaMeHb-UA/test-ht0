@@ -8,8 +8,14 @@ export default {
             log: withArgsCheck('log', async () => {}),
         },
     }),
-    'gRPC Handler': async () => async () => {},
-    'REST Handler': async () => async () => {},
+    'gRPC Handler': async ({ loadComponent }) => {
+        const { grpcResolver } = await loadComponent('tests state');
+        return async () => grpcResolver;
+    },
+    'REST Handler': async ({ loadComponent }) => {
+        const { restResolver } = await loadComponent('tests state');
+        return async () => restResolver;
+    },
     'MongoDB Cluster': async () => ({
         async add(data){
             logs.push(JSON.stringify(data));
