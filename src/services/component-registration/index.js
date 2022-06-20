@@ -8,6 +8,10 @@ export function registerComponent({ name, default: loader }, options){
         .then(component => (console.log(`${name} loaded in ${Date.now() - start} ms`), loadedComponents[name] = component));
 }
 
+export function unregisterComponent(name){
+    delete loadedComponents[name];
+}
+
 export async function loadComponent(name){
     if(name in loadedComponents) return loadedComponents[name];
     throw new Error('There is no registered component named ' + name);
