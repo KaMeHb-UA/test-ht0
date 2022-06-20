@@ -4,6 +4,9 @@ import stubUnits from './stub-units';
 import units from './units';
 import getPorts from './get-ports';
 
+// unit tests
+import grpcTest from '../grpc.unit.test';
+
 const [ grpcBinding, restBinding ] = (await getPorts(2)).map(port => `127.0.0.1:${port}`);
 
 const basicOptions = {
@@ -14,6 +17,7 @@ const basicOptions = {
 };
 
 const unitTests = {
+    'gRPC Handler': grpcTest,
 };
 
 console.log('Running unit tests...');
