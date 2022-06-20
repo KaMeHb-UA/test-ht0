@@ -7,6 +7,7 @@ export default {
         methods: {
             log: withArgsCheck('log', async () => {}),
         },
+        destroy(){},
     }),
     'gRPC Handler': async ({ loadComponent }) => {
         const { grpcResolver } = await loadComponent('tests state');
