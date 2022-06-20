@@ -25,6 +25,15 @@ const unitTests = {
 console.log('Running unit tests...');
 
 for(const name in unitTests){
+    console.log(`${
+        '\n\n--------------------------------\n\n'
+    }${
+        ''.padStart(16 - Math.floor(name.length / 2), ' ')
+    }${
+        name
+    }${
+        '\n\n--------------------------------\n'
+    }`);
     const start = Date.now();
     const components = Object.assign({}, stubUnits, {
         [name]: units[name],
