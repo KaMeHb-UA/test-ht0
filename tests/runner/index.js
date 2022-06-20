@@ -10,6 +10,7 @@ import grpcUnitTest from '../grpc.unit.test';
 import restUnitTest from '../rest.unit.test';
 import serverUnitTest from '../server.unit.test';
 import methodsUnitTest from '../methods.unit.test';
+import mongoUnitTest from '../mongo.unit.test';
 
 const [ grpcBinding, restBinding ] = (await getPorts(2)).map(port => `127.0.0.1:${port}`);
 const { MONGO_CONNECTION_URL } = env;
@@ -43,6 +44,7 @@ const unitTests = {
     'REST Handler': restUnitTest,
     'Server': serverUnitTest,
     'Methods': methodsUnitTest,
+    'MongoDB Cluster': mongoUnitTest,
 };
 
 console.log('Running unit tests...');
