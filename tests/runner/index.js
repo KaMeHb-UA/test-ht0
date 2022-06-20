@@ -5,7 +5,8 @@ import units from './units';
 import getPorts from './get-ports';
 
 // unit tests
-import grpcTest from '../grpc.unit.test';
+import grpcUnitTest from '../grpc.unit.test';
+import restUnitTest from '../rest.unit.test';
 
 const [ grpcBinding, restBinding ] = (await getPorts(2)).map(port => `127.0.0.1:${port}`);
 
@@ -17,7 +18,8 @@ const basicOptions = {
 };
 
 const unitTests = {
-    'gRPC Handler': grpcTest,
+    'gRPC Handler': grpcUnitTest,
+    'REST Handler': restUnitTest,
 };
 
 console.log('Running unit tests...');
