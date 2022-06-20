@@ -1,4 +1,4 @@
-import HTTPError from '@/helpers/http-error';
+import { withArgsCheck } from './args';
 
 export const name = 'Methods';
 
@@ -6,10 +6,7 @@ export default async ({ loadComponent }) => {
     const { add, disconnect } = await loadComponent('MongoDB Cluster');
     return {
         methods: {
-            async log(data){
-                if(Number.isNaN(+new Date(data.Timestamp))) throw new HTTPError('Invalid datetime string supplied in Timestamp field', 400);
-                await add(data);
-            },
+            log: withArgsCheck('log', async data => { await add(data) }),
         },
         async destroy(){
             const start = Date.now();
