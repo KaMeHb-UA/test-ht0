@@ -55,3 +55,27 @@ To run tests invoke `test` script:
 ```
 yarn test
 ```
+
+## API
+
+There is the same API on both gRPC and REST API endpoints so you can use any endpoint and protocol you prefer. It's recommended to use gRPC where it's possible due to speed & transfer size efficiency.  
+
+You can find machine-readable API references for REST API in <code>[test-ht0.postman_collection.json](test-ht0.postman_collection.json) (Postman collection)</code> and for gRPC — in <code>[src/grpc.proto](src/grpc.proto)</code> (Protocol Buffers definition).
+
+### Human-readable APIs description
+
+#### log
+Saves log entry in the DB.  
+<code>**Request**</code>
+```json
+{
+    "Timestamp": "datetime string (ex. ISO 8601)",
+    "Category": "string",
+    "Origin": "string",
+    "Message": "string"
+}
+```
+<code>**Response**</code>
+```
+void
+```
