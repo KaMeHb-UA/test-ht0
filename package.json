@@ -3,8 +3,9 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "node build --dist",
-        "start": "node build && cd dist && node --enable-source-maps index"
+        "build": "rm -rf dist && node build --dist",
+        "start": "rm -rf dist && node build && cd dist && node --enable-source-maps index",
+        "test": "rm -rf dist && node build --tests && cd dist && node --enable-source-maps index"
     },
     "dependencies": {
         "@grpc/grpc-js": "^1.6.7",

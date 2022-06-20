@@ -8,13 +8,14 @@ import { fileURLToPath } from 'node:url';
 const dirname = resolve(fileURLToPath(import.meta.url), '..'),
   srcDir = resolve(dirname, 'src'),
   distDir = resolve(dirname, 'dist'),
-  release = argv.includes('--dist');
+  release = argv.includes('--dist'),
+  tests = argv.includes('--tests');
 
 const dotenvImport = release ? '' : '\nrequire("dotenv").config({path:"../.env"});';
 
 /** @type {import('esbuild').BuildOptions} */
 const buildConfig = {
-  entryPoints: [resolve(srcDir, 'index.js')],
+  entryPoints: tests ? [resolve(srcDir, '..', 'tests', 'runner', 'index.js')] : [resolve(srcDir, 'index.js')],
   bundle: true,
   outfile: resolve(distDir, 'index.js'),
   allowOverwrite: true,
@@ -46,7 +47,7 @@ try{
     writeFile(resolve(distDir, 'package.json'), JSON.stringify(distPackageJson)),
     copyFile(resolve(srcDir, 'grpc.proto'), resolve(distDir, 'grpc.proto')),
   ]);
-  console.log(
+  release && console.log(
     `Built for production with esbuild in ${Date.now() - start} ms`,
   );
 } catch(e){
