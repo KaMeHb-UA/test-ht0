@@ -1,5 +1,22 @@
 # Challenge #1
 
+## Architecture
+
+If there is need to rewrite the app with a monolitic nature, I recommend to follow microservice architecture. Here is **why**:
+- development can happen simultaneously on different app parts
+- development can happen using different languages and different structure if needed
+- the whole app will not exit if some unexpected error happen
+- there is an ability to horizontally scale the app in general case using multi instances of some microservice and/or multi machines
+- there is an ability to easily manage and measure app parts independently to improve codebase and reduce costs
+But there are also some **disadvantages** of using microservices:
+- Slow communication speed between app parts (comparing to monolith)
+- More complex structure
+- A little bit harder to develop
+- Usually has a bottleneck — messaging queue service that runs runs in single instance
+
+### Scheme
+![](https://raw.githubusercontent.com/KaMeHb-UA/test-ht0/assets/arch-scheme.drawio.png)
+
 # Challenge #2
 
 The **Log Persistence & Analysing Service (LPAS)** can handle both gRPC and REST API using unified method naming, arguments and results. Therefore API is described only once.
