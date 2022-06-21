@@ -12,13 +12,19 @@ const methodArgs = {
 };
 
 export function checkArgs(name, args){
-    const argTypes = methodArgs[name];
-    for(const arg in argTypes){
-        if(!(arg in args)) throw new HTTPError(arg + ' field not found in args', 400);
-        else if(typeof argTypes[arg] === 'function') argTypes[arg](args[arg]);
-        else if(typeof args[arg] !== argTypes[arg])
-            throw new HTTPError(`${arg} field has incorrect type. Expected ${argTypes[arg]} but received ${typeof args[arg]}`, 400);
-    }
+    const argTypesArr = Array.isArray(methodArgs[name]) ? methodArgs[name] : [ methodArgs[name] ];
+    argTypesArr.forEach((argTypes, i) => {
+        try{
+            for(const arg in argTypes){
+                if(!(arg in args)) throw new HTTPError(arg + ' field not found in args', 400);
+                else if(typeof argTypes[arg] === 'function') argTypes[arg](args[arg]);
+                else if(typeof args[arg] !== argTypes[arg])
+                    throw new HTTPError(`${arg} field has incorrect type. Expected ${argTypes[arg]} but received ${typeof args[arg]}`, 400);
+            }
+        } catch(e){
+            if(i + 1 === argTypesArr.length) throw e;
+        }
+    });
 }
 
 export function withArgsCheck(methodMap){
