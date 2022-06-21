@@ -18,6 +18,19 @@ But there are also some **disadvantages** of using microservices:
 ### Scheme
 ![](https://raw.githubusercontent.com/KaMeHb-UA/test-ht0/assets/arch-scheme.drawio.png)
 
+## Development
+
+### Tools
+I suggest using <code><b>[Docker](https://www.docker.com/)</b></code> as an isolated environment for each microservice. It's the most mature container runtime engine we have nowadays. That's why it's usually recommended to use in production environment.  
+To bundle code I recommend using <code><b>[esbuild](https://esbuild.github.io/)</b></code> due to its incredible speed and good [well-documented](https://esbuild.github.io/plugins/) plugin API.  
+As a MQ service I recommend to consider using either <code><b>[Rabbit MQ](https://www.rabbitmq.com/)</b></code> or <code><b>[Apache Kafka](https://kafka.apache.org/)</b></code> as the most stable, fast, documented and mature variants.  
+To organize cross-service communication via MQ I recommend to check <code><b>[AsyncAPI](https://www.asyncapi.com/)</b></code> due to standartization, code generation and easy-to-write configuration files.  
+To reduce bug count and make it easier to read the code, I recommend using <code><b>[TypeScript](https://www.typescriptlang.org/)</b></code> as a primary language and **_strictly_** configure <code><b>[ESLint](https://eslint.org/)</b></code> and <code><b>[Prettier](https://prettier.io/)</b></code>.
+
+### Code quality
+To ensure code quality there is need to review all the Pull/Merge requests before they merged. This can be done automatically using predefined review scheme and CI platform (for example, GitHub Actions).  
+Also such tools as mentioned before — TypeScript, ESLint and Prettier can automatically ensure code style before review is made by human.
+
 # Challenge #2
 
 The **Log Persistence & Analysing Service (LPAS)** can handle both gRPC and REST API using unified method naming, arguments and results. Therefore API is described only once.
