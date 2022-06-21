@@ -76,6 +76,28 @@ Saves log entry in the DB.
 }
 ```
 <code>**Response**</code>
+```typescript
+{}
 ```
-void
+
+#### analyze
+Analyzes logs in the DB. Each type of the request defines its own rest parameters. Available types: `count`.
+##### count
+Counts logs in the DB filtering them using patterns for each field. To count all the logs, simply don't specify any pattern.  
+Each pattern is an array of 1 or 2 string elements. The first one is a regexp for filtering, and the second one specifies a list of flags if provided.  
+Example:  
+<code>**Request**</code>
+```json
+{
+    "patterns": {
+        "Category": ["category name", "i"],
+    },
+    "type": "count"
+}
+```
+<code>**Response**</code>
+```typescript
+{
+    "count": int64
+}
 ```

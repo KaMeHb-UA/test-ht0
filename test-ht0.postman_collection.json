@@ -9,7 +9,7 @@
 		{
 			"name": "log",
 			"request": {
-				"method": "POST",
+				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -29,6 +29,35 @@
 					"port": "3002",
 					"path": [
 						"log"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "analyze [count]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3002/analyze?type=count&patterns={\"Category\": [\"nostrud et excepteur laboris\", \"i\"]}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"analyze"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "count"
+						},
+						{
+							"key": "patterns",
+							"value": "{\"Category\": [\"nostrud et excepteur laboris\", \"i\"]}"
+						}
 					]
 				}
 			},
