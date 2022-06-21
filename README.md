@@ -31,6 +31,10 @@ To reduce bug count and make it easier to read the code, I recommend using <code
 To ensure code quality there is need to review all the Pull/Merge requests before they merged. This can be done automatically using predefined review scheme and CI platform (for example, GitHub Actions).  
 Also such tools as mentioned before — TypeScript, ESLint and Prettier can automatically ensure code style before review is made by human.
 
+## Deployment
+Each time release is created there is a possibility to run tests, build Docker container and push it to the remote registry. Than one of the microservice's instances receives signal to stop while other instances should stop processing write requests. After both one instance stopped and others have no more pending writes to DB, a new instance from the updated image is being created. After healthcheck ensures that new instance is started (this instance has no write limits so it starts processing write-related requests) other "old" instances starts recreating with a new image.  
+If healthcheck does not ensure new instance running properly during a timeout, new instance is being reverted to the old image and other instances starts processing write-related requests.
+
 # Challenge #2
 
 The **Log Persistence & Analysing Service (LPAS)** can handle both gRPC and REST API using unified method naming, arguments and results. Therefore API is described only once.
