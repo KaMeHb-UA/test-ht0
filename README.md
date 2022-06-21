@@ -8,6 +8,7 @@ If there is need to rewrite the app with a monolitic nature, I recommend to foll
 - the whole app will not exit if some unexpected error happen
 - there is an ability to horizontally scale the app in general case using multi instances of some microservice and/or multi machines
 - there is an ability to easily manage and measure app parts independently to improve codebase and reduce costs
+
 But there are also some **disadvantages** of using microservices:
 - Slow communication speed between app parts (comparing to monolith)
 - More complex structure
