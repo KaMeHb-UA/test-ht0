@@ -35,6 +35,6 @@ async function writeRes(res, data){
 }
 
 export default {
-    log: ['POST', getParams, writeRes],
+    log: ['PUT', getParams, writeRes],
     analyze: ['GET', getQueryParams, writeRes],
 }
