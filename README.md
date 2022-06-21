@@ -101,3 +101,35 @@ Example:
     "count": int64
 }
 ```
+
+## Motivation of using modules, patterns, etc.
+
+### Modules
+
+#### esbuild
+Extremely fast JS bundler written in Go with easy-understandable API.
+
+#### @grpc/grpc-js
+JS implementation of gRPC. Should be used instead of `grpc` module in all the new projects due to few reasons: deprecation of `grpc`, irrequirement of native build tools, standard way of bundling.
+
+#### @grpc/proto-loader
+Standard and recommended module to load `.proto` definitions. Does not require native build.
+
+#### mongodb
+Standard and recommended driver for MongoDB. Does not require native build.
+
+#### dotenv
+Just a helper for loading environment variables from `.env` file. Used only in non-production builds.
+
+### Patterns
+
+#### Dynamic registering and loading components
+Used for:
+- Metrics. We can measure loading time of each component in runtime
+- Tests. We can replace real components with stub ones to test each component in isolated env or test how components interpolate with each other (unit and integration tests accordingly)
+
+#### Multi-stage docker builds
+Used to reduce production image size by saving only really required layers.
+
+#### Distroless base docker image
+Used to reduce production image size by stripping all the stuff that is not used in production. For example, shell.
