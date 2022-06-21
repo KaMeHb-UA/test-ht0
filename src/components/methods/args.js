@@ -1,5 +1,13 @@
 import HTTPError from '@/helpers/http-error';
 
+const analyzeTypeUnknown = 'type field should be "count"';
+
+function formatStrListOptions(arr){
+    const [ ...elements ] = arr;
+    const last = elements.pop();
+    return elements.map(JSON.stringify).join(', ') + ' or ' + JSON.stringify(last);
+}
+
 const methodArgs = {
     log: {
         Category: "string",
@@ -9,6 +17,23 @@ const methodArgs = {
             if(Number.isNaN(+new Date(v))) throw new HTTPError('Invalid datetime string supplied in Timestamp field', 400);
         },
     },
+    analyze: [{
+        type(v){
+            if(v !== 'count') throw new HTTPError(analyzeTypeUnknown, 400);
+        },
+        patterns(v){
+            if(!v || typeof v !== 'object' || Array.isArray(v)) throw new HTTPError('"patterns" field should be a map with string keys');
+            const knownFields = Object.keys(methodArgs.log);
+            for(const i in v){
+                if(!knownFields.includes(i)) throw new HTTPError(`unknown field ${JSON.stringify(i)}, should be one of ${formatStrListOptions(knownFields)}`);
+                const err = new HTTPError('each "patterns" field should be an array of 1 or 2 string elements');
+                if(!Array.isArray(v[i])) throw err;
+                const { length, 0: first, 1: second } = v[i];
+                if(length !== 1 && length !== 2) throw err;
+                if(typeof first !== 'string' || (typeof second !== 'string' && typeof second !== 'undefined')) throw err;
+            }
+        },
+    }],
 };
 
 export function checkArgs(name, args){

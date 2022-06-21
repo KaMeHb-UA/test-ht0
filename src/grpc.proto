@@ -10,6 +10,23 @@ message LogData {
   string Message = 4;
 }
 
+message AnalyzeOptions {
+  message Patterns {
+    repeated string Timestamp = 1;
+    repeated string Category = 2;
+    repeated string Origin = 3;
+    repeated string Message = 4;
+  }
+
+  string type = 1;
+  Patterns patterns = 2;
+}
+
+message AnalyzeResult {
+  int64 count = 1;
+}
+
 service LogService {
   rpc log (LogData) returns (Empty);
+  rpc analyze (AnalyzeOptions) returns (AnalyzeResult);
 }
